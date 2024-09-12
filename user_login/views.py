@@ -9,18 +9,17 @@ from django.contrib.auth import authenticate, login
 from django.contrib.sessions.models import Session
 
 
-
 class LoginView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        email = request.data.get('email')
+        username = request.data.get('username')
         password = request.data.get('password')
-        user = authenticate(request, username=email, password=password)
+        user = authenticate(request, username=username, password=password)
         if user:
             login(request, user)
-            # set user-specific data in the session
-            request.session['email'] = email
+
+            request.session['username'] = username
             request.session.save()
             return Response(f'Logged in. Session Key:{request.session.session_key}', status=status.HTTP_200_OK)
         else:
@@ -28,9 +27,7 @@ class LoginView(APIView):
 
 
 class LogoutView(APIView):
-    permission_classes = [AllowAny]
 
     def post(self, request):
         request.session.delete()
-
         return Response({"Logout OK."}, status=status.HTTP_200_OK)
