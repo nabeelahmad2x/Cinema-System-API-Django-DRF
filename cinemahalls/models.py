@@ -30,3 +30,13 @@ class CinemaHall(models.Model):
         elif self.category == 'Silver':
             return 400
         return 0
+
+    # @property
+    # def seating_numbers(self):
+    #     if self.category == 'Diamond':
+    #         seats =             return seats
+    #     elif self.category == 'Gold':
+    #         return 200
+    #     elif self.category == 'Silver':
+    #         return 300
+    #     return 0
