@@ -1,4 +1,5 @@
 from django.db import models
+
 from cinemahalls.models import CinemaHall
 from movies.models import Movie
 
@@ -12,14 +13,24 @@ class Shows(models.Model):
         (4, "06:30 PM - 09:00 PM"),
         (5, "09:00 PM - 11:30 PM")
     )
+    SHOW_STATUS_CHOICES = (
+        ('Open', 'Open'),
+        ('Completed', 'Completed'),
+        ('Cancelled', 'Cancelled'),
+        ('HouseFull', 'HouseFull'),
+    )
 
-    id = models.BigAutoField(primary_key=True)
     show_date = models.DateField()
     timeslot = models.CharField()
     ticket_price = models.DecimalField(max_digits=6, decimal_places=2)
     show_status = models.CharField()
     cinema_hall = models.ForeignKey(CinemaHall, on_delete=models.CASCADE)
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    seats_booked = models.IntegerField(default=0)
+
+    @property
+    def available_seats(self):
+        return self.cinema_hall.seating_capacity - self.seats_booked
 
     class Meta:
-        unique_together = ('cinema_hall', 'show_date', 'timeslot')
+        unique_together = ['cinema_hall', 'show_date', 'timeslot']

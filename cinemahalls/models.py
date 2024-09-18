@@ -21,15 +21,15 @@ class CinemaHall(models.Model):
             return 140
         return 0
 
-    @property
-    def seat_price(self):
-        if self.category == 'Diamond':
-            return 1000
-        elif self.category == 'Gold':
-            return 800
-        elif self.category == 'Silver':
-            return 400
-        return 0
+    # @property
+    # def seat_price(self):
+    #     if self.category == 'Diamond':
+    #         return 1000
+    #     elif self.category == 'Gold':
+    #         return 800
+    #     elif self.category == 'Silver':
+    #         return 400
+    #     return 0
 
     # @property
     # def seating_numbers(self):

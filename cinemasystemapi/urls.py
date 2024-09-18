@@ -45,6 +45,6 @@ urlpatterns = [
     path('api/', include('movies.urls'), name='movies'),
     path('api/', include('shows.urls'), name='shows'),
     path('api/', include('cinemahalls.urls'), name='cinemahalls'),
-    # path('api/', include('user.urls'), name='movies'),
+    path('api/', include('showsbooking.urls'), name='booking'),
     path('api/', include('user_login.urls'), name='user_login'),
 ]

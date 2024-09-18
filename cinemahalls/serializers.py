@@ -5,7 +5,7 @@ from .models import CinemaHall
 class CinemaHallSerializer(serializers.ModelSerializer):
     class Meta:
         model = CinemaHall
-        fields = '__all__'
+        fields = ['name', 'category', 'seating_capacity']
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
