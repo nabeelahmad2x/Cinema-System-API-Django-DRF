@@ -1,7 +1,14 @@
+from rest_framework import routers
+from django.urls import path, include
 
-from django.urls import path
-from .views import BookingView
+from .views import BookingViewSet
+
+
+router = routers.DefaultRouter()
+router.register(r'booking/', BookingViewSet, basename='booking')
+
+# Include the router's URLs in the main urlpatterns
 urlpatterns = [
-    path('booking/post/', BookingView.as_view(), name='booking_post'),
-    path('booking/user/<int:user_id>/', BookingView.as_view(), name='booking_get'),
+    path('', include(router.urls)),
+    path('user_bookings/', BookingViewSet.as_view({'get': 'get_user_bookings'})),
 ]
